@@ -1,0 +1,62 @@
+---
+description: React + Chakra UI v3 + TanStack Table AI Rules
+globs: ["*.jsx", "*.tsx"]
+alwaysApply: true
+
+# GENERAL REACT RULES
+- Always use functional components with hooks.
+- Prefer arrow functions over function declarations.
+- Use React.FC or explicit typing for component props for better type safety.
+- Never use "any"; rely on inferred types or generics when needed.
+- Use clean, readable JSX structure with proper indentation.
+- Apply optional chaining (?.) and nullish coalescing (??) from ES2022 features liberally.
+- Keep UI and logic separated; place heavy logic in custom hooks.
+- Use useMemo for memoization and useCallback for memoizing callbacks to prevent unnecessary re-renders.
+
+# CHAKRA UI RULES
+- Always use Chakra UI v3 component syntax.
+- Prefer layout components like <Box>, <Flex>, <Stack>, <HStack>, <VStack> instead of div.
+- For spacing and layout, always use Chakra props: p, px, py, m, mt, gap, etc.
+- Use theme tokens (e.g., "primary.500", "gray.600") instead of raw CSS values.
+- Avoid mixing raw CSS inside style={{}} unless absolutely necessary.
+- Apply variants, size props, and responsive props (base, sm, md, lg, xl) consistently.
+- Use responsive array or object syntax explicitly for adaptive design (e.g., px={[2, 4, 6]}).
+- Import only Chakra components used in each file; no unused imports.
+
+# TANSTACK TABLE RULES
+- Use TanStack Table v8 APIs exclusively.
+- Define columns using createColumnHelper or accessorKey.
+- Always separate column definitions, table instance (via useReactTable), and table UI rendering.
+- Memoize columns and data arrays with useMemo.
+- Memoize callback handlers with useCallback when applicable.
+- Use Chakra UI table components: <Table>, <Thead>, <Tbody>, <Tr>, <Th>, <Td> instead of raw HTML table elements.
+- Do not create monolithic table components; build composable, reusable pieces.
+- Avoid inline heavy logic in custom cells; use small or memoized cell components.
+- Implement sorting, filtering, and pagination only via TanStack APIs.
+- Manage table state (sorting, filtering, pagination) in a controlled way, keeping state in React.
+
+# FOLDER STRUCTURE RULES
+- Organize React components in /components folder.
+- Place custom hooks in /hooks folder.
+- Put table-related code in /tables folder with files:
+    - tableColumns.js or .ts
+    - tableData.js or .ts
+    - TableComponent.jsx or .tsx
+- (Optional) Use /utils for utility functions.
+- (Optional) Use /api or /services folder for backend service or AI integration code.
+
+# IMPORT RULES
+- Group imports in this order:
+  1. React & React hooks
+  2. Chakra UI components
+  3. TanStack Table utilities
+  4. Local project imports (/components, /hooks, /tables, etc.)
+- Use named imports wherever possible.
+- Never include unused imports.
+
+# WRITING STYLE RULES
+- Always include all required imports explicitly.
+- Use descriptive, meaningful component and file names.
+- Avoid deep JSX nesting; decompose into smaller components.
+- Format JSX for readability, with consistent indentation and spacing.
+- Write code in English with clear comments where necessary.
