@@ -23,14 +23,14 @@ const sidebarIconRecipe = defineRecipe({
     },
 
     svg: {
-      width: "20px",
-      height: "20px",
+      width: "1.5rem",
+      height: "1.5rem",
       transition: "color 0.2s ease, transform 0.2s ease",
       color: "inherit",
 
       // svg hover effect
       _hover: {
-        color: "brand.800",        // darker brand color on hover
+        color: "brand.50",        // darker brand color on hover
         transform: "scale(1.05)",  // slight zoom on the icon itself
       },
     },

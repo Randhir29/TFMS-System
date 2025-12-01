@@ -92,7 +92,7 @@ const sidebarRecipe = defineRecipe({
       py: 3,
       px: 3,
       alignItems: "center",
-      minHeight: "56px",
+      minHeight: "65px",
       borderBottom: "1px solid",
       borderColor: "gray.200",
       flexShrink: 0,
