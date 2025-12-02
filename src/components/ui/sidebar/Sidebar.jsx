@@ -35,7 +35,7 @@ import { useCallback, useState } from "react";
 
 import { Box, useBreakpointValue } from "@chakra-ui/react";
 
-import SidebarDesktop from "./SidebarDesktop";
+import SidebarDesktop from "./SideBarDesktop";
 import SidebarMobile from "./SidebarMobile";
 
 // ============================================================================

@@ -67,7 +67,7 @@ export default function SidebarDesktop() {
     size: expanded ? "expanded" : "collapsed",
   });
 
-  const sideBarToogleButtonStyles = itemSlot({ state: "default" });
+  const sideBarToogleButtonStyles = itemSlot().row;
   // ------------------------------------------------------------
   // Active route check
   // ------------------------------------------------------------
@@ -220,38 +220,62 @@ export default function SidebarDesktop() {
 
 
     return (
-      <Box 
-        key={child.id}
+       expanded ? (
+    <Box
+      key={child.id}
+      as="button"
+      css={rowStyles.row}
+      data-group="row"
+      onClick={() => handleNavigate(child.to)}
+    >
+      {/* Child Icon */}
+      <Box css={rowStyles.iconWrap}>
+        {IconC ? (
+          <IconC css={iconStyles.svg} />
+        ) : (
+          <Box
+            width="1.5rem"
+            height="1.5rem"
+            bg="brand.400"
+            borderRadius="md"
+          />
+        )}
+      </Box>
+
+      {/* Child Label */}
+      <Text css={rowStyles.label}>{child.label}</Text>
+    </Box>
+  ) : (
+    <TFMSTooltip
+      key={child.id}
+      label={child.label}
+      placement="right"
+      offset={{ x: 0, y: 0 }}
+    >
+      <Box
         as="button"
         css={rowStyles.row}
         data-group="row"
         onClick={() => handleNavigate(child.to)}
-        >
-        
-          {/* <Box
-            as="button"
-            css={rowCss}
-            data-group="row"
-            onClick={() => handleNavigate(child.to)}
-          > */}
-            <Box css={rowStyles.iconWrap}>
-              {IconC ? (
-                <IconC css={iconStyles.svg} />
-              ) : (
-                <Box width="1.5rem" height="1.5rem" bg="brand.400" borderRadius="md" />
-              )}
-            </Box>
-        
-          {expanded && (
-            <TFMSTooltip key={child.id} label={child.label} placement="bottom" offset={{ x: 6, y: 0 }} size="sm">
-            <Text
-              // `` css={{ ...labelCss, flex: "unset", minWidth: "auto", width: "auto", whiteSpace: "nowrap", overflow: "visible", textOverflow: "unset", px: 1 }}
-            >
-              {child.label}
-            </Text>
-            </TFMSTooltip>
+      >
+        {/* Child Icon */}
+        <Box css={rowStyles.iconWrap}>
+          {IconC ? (
+            <IconC css={iconStyles.svg} />
+          ) : (
+            <Box
+              width="1.5rem"
+              height="1.5rem"
+              bg="brand.400"
+              borderRadius="md"
+            />
           )}
+        </Box>
+
+        {/* No label here, since tooltip shows it */}
       </Box>
+    </TFMSTooltip>
+  )
     );
   };
 
@@ -330,61 +354,76 @@ export default function SidebarDesktop() {
 
   return (
     <Accordion.Item key={parent.id} value={parent.value}>
+  {expanded ? (
+    <Accordion.ItemTrigger
+      css={rowStyles.row}
+      _open={
+        ParentActive
+          ? itemSlot({
+              state: "activeParent",
+              expanded: expanded ? "true" : "false",
+            }).row
+          : undefined
+      }
+      data-group="row"
+    >
+      {/* Parent Icon */}
+      <Box css={rowStyles.iconWrap}>
+        {IconC ? (
+          <Box as={IconC} css={iconStyles.svg} />
+        ) : (
+          <Box width="20px" height="20px" bg="gray.400" borderRadius="md" />
+        )}
+      </Box>
 
-      {/* Do NOT pass row styles directly to ItemTrigger */}
+      {/* Parent Label */}
+      <Text css={rowStyles.label}>{parent.label}</Text>
+
+      {/* Parent Indicator */}
+      <Accordion.ItemIndicator css={rowStyles.indicator}>
+        <FiChevronDown />
+      </Accordion.ItemIndicator>
+    </Accordion.ItemTrigger>
+  ) : (
+    <TFMSTooltip
+      key={parent.id}
+      label={parent.label}
+      placement="right"
+      offset={{ x: 0, y: 0 }}
+    >
       <Accordion.ItemTrigger
-        css= {rowStyles.row}
-         _open={ParentActive ? itemSlot({ state: "activeParent", expanded: expanded ? "true" : "false" }).row : undefined}
-         data-group="row"
-        >  
-          {/* <Box> */}
-            {/* <Box css={{ display: "flex", alignItems: "center", gap: 2, minWidth: 0 }}>
-                <Box css={iconWrapCss}>
-                  {IconC ? (
-                    <Box as={IconC} css={iconStyles.svg} />
-                  ) : (
-                    <Box width="20px" height="20px" bg="gray.400" borderRadius="md" />
-                  )}
-                </Box> */}
-             <Box css={rowStyles.iconWrap}>
-                {!expanded ? (
-                  <TFMSTooltip label={parent.label} placement="right-start"  offset={{ x:8, y: 0}}>
-                    {IconC ? <Box as={IconC} css={iconStyles.svg} /> : <Box width="20px" height="20px" bg="gray.400" borderRadius="md" />}
-                  </TFMSTooltip>
-                ) : (
-                  IconC ? <Box as={IconC} css={iconStyles.svg} /> : <Box width="20px" height="20px" bg="gray.400" borderRadius="md" />
-                )}
-            </Box>
+        css={rowStyles.row}
+        _open={
+          ParentActive
+            ? itemSlot({
+                state: "activeParent",
+                expanded: expanded ? "true" : "false",
+              }).row
+            : undefined
+        }
+        data-group="row"
+      >
+        {/* Parent Icon */}
+        <Box css={rowStyles.iconWrap}>
+          {IconC ? (
+            <Box as={IconC} css={iconStyles.svg} />
+          ) : (
+            <Box width="20px" height="20px" bg="gray.400" borderRadius="md" />
+          )}
+        </Box>
 
-            {expanded && (
-              <TFMSTooltip label={parent.label} placement="bottom" offset={{ x: 0, y: 0 }} size="sm">
-                  <Text css={rowStyles.label}>
-                {parent.label}
-              </Text>
-              </TFMSTooltip>
-            )}
-            {/* </Box> */}
-            {!expanded ? (
-              <TFMSTooltip label={parent.label} placement="right-start" offset={{ x: 8, y: 0 }}>
-                <Accordion.ItemIndicator css={rowStyles.indicator}>
-                  <FiChevronDown />
-                </Accordion.ItemIndicator>
-              </TFMSTooltip>
-                 ) : (
-              <Accordion.ItemIndicator css={rowStyles.indicator}>
-                <FiChevronDown />
-              </Accordion.ItemIndicator>
-            )}
-
-            {/* </Box> */}
-        {/* </TFMSTooltip> */}
-
+        {/* Parent Indicator */}
+        <Accordion.ItemIndicator css={rowStyles.indicator}>
+          <FiChevronDown />
+        </Accordion.ItemIndicator>
       </Accordion.ItemTrigger>
+    </TFMSTooltip>
+  )}
 
-      <Accordion.ItemContent>
-        {parent.children.map(renderChild)}
-      </Accordion.ItemContent>
-
+  {/* Children */}
+  <Accordion.ItemContent>
+    {parent.children.map(renderChild)}
+  </Accordion.ItemContent>
     </Accordion.Item>
   );
 };
@@ -423,20 +462,40 @@ export default function SidebarDesktop() {
         >
           {menuData.menuItems.map(renderParent)}
           {/* SideBar Toggle Switch*/}
-          <TFMSTooltip
-            label={expanded ? "Collapse sidebar" : "Expand sidebar"}
-            placement="right"
-            offset={{ x: 0, y: 0 }}
-          >
-            <Box
-              as="button"
-              onClick={onClickToogleBtn}
-              aria-label="Toggle sidebar"
-              css={toggleCss}
-            >
-                {expanded ? <LuPanelLeftClose /> : <LuPanelRightClose />}
-            </Box>
-          </TFMSTooltip>
+          { expanded ?
+            (
+              <Box
+                  as="button"
+                  onClick={onClickToogleBtn}
+                  aria-label="Toggle sidebar"
+                  css={toggleCss}
+                >
+                    <Box css={{...sideBarToogleButtonStyles,px:4,py:2, justifyContent:"flex-start", gap:"32px", fontSize: "md"}}>
+                      <LuPanelLeftClose size="1.5rem" />
+                      <Text>Collapse Sidebar</Text>
+                    </Box>
+                </Box>
+            ) :
+
+            (
+              <TFMSTooltip
+                    label= "Toggle sidebar"
+                    placement="right"
+                    offset={{ x: 0, y: 0 }}
+              >
+                <Box
+                  as="button"
+                  onClick={onClickToogleBtn}
+                  aria-label="Toggle sidebar"
+                  css={toggleCss}
+                >
+                    <Box css={{...sideBarToogleButtonStyles,px:4,py:2, justifyContent:"flex-start", fontSize: "1.5rem"}}>
+                      <LuPanelRightClose/>
+                    </Box>
+                </Box>
+              </TFMSTooltip>
+            )
+  }
 
         </Accordion.Root> 
       </Box>  

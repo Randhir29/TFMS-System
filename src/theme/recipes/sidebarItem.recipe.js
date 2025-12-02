@@ -8,15 +8,16 @@ const sidebarItemRecipe = defineRecipe({
 
   base: {
     row: { // styling for children
+      width: "100%",
       display: "flex",
       alignItems: "center",
       gap: "8px",
       px: 2,
       py: 2,
+      mt:1,
       color: "gray.800",
       fontSize: "md",
       fontWeight: "semibold",
-      width: "100%",
       borderRadius: "full",
       transition:  "background 0.2s ease, color 0.2s ease",
       cursor: "pointer",
@@ -61,8 +62,8 @@ const sidebarItemRecipe = defineRecipe({
       color: "inherit", // ✅ let SVG use currentColor
       // Push indicator to far right and keep uniform gap from the right edge
       ml: "auto",
-      mr: 1,
-      '[data-group="row"]:hover &': { opacity: 1 },
+      mr: 0,
+      _groupHover: { opacity: 1 }, // ✅ works collapsed or expanded
     },
   },
 

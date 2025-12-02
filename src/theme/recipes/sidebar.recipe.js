@@ -85,18 +85,19 @@ const sidebarRecipe = defineRecipe({
       flexDirection: "column",
       height: "100vh",
       overflow: "visible",
+      mt:2,
       transition: "width 0.5s ease-in-out",
     },
 
-    brand: {
-      py: 3,
-      px: 3,
-      alignItems: "center",
-      minHeight: "65px",
-      borderBottom: "1px solid",
-      borderColor: "gray.200",
-      flexShrink: 0,
-    },
+    // brand: {
+    //   py: 3,
+    //   px: 3,
+    //   alignItems: "center",
+    //   minHeight: "65px",
+    //   borderBottom: "1px solid",
+    //   borderColor: "gray.200",
+    //   flexShrink: 0,
+    // },
 
     // 🔥 Scroll area ABOVE toggle
     scroll: {
@@ -106,9 +107,9 @@ const sidebarRecipe = defineRecipe({
     flexDirection: "column",
     overflowY: "auto",
     overflowX: "hidden",
-    scrollbarGutter: "stable",
-    px: 2,
-    py: 2,
+    // scrollbarGutter: "stable",
+    // px: 2,
+    // py: 2,
     paddingBottom: "80px",  // ⭐ KEEP SCROLL FULL + KEEP TOGGLE VISIBLE
     overscrollBehavior: "contain",
     
@@ -136,7 +137,6 @@ const sidebarRecipe = defineRecipe({
       width: "100%",
       cursor: "pointer",
       bg: "gray.50",
-      fontSize: "24px",
       zIndex: 10,
       alignSelf: "center",
     },
@@ -146,7 +146,7 @@ const sidebarRecipe = defineRecipe({
     size: {
       collapsed: {
         container: {
-          width: "64px",
+          width: "80px",
         },
         brand: {
           justifyContent: "center",
