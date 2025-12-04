@@ -1,0 +1,80 @@
+import {
+  Button,
+  Checkbox,
+  Field,
+  GridItem,
+  Heading,
+  Input,
+  Select,
+  SimpleGrid,
+  Text,
+  Textarea,
+  VStack,
+} from "@chakra-ui/react";
+
+
+
+function YourDetails() {
+  return (
+    <VStack w="full" h="full" p={10} spacing={10} align="flex-start">
+      <VStack align="flex-start" spacing={2}>
+        <Heading>Your Details</Heading>
+        <Text>If you already have an account click here to log in</Text>
+      </VStack>
+
+      <SimpleGrid columns={2} rowGap={4} columnGap={3} w="full">
+        <GridItem colSpan={1}>
+          <Field.Root>
+            <Field.Label>First Name</Field.Label>
+            <Input placeholder="First Name" />
+          </Field.Root>
+        </GridItem>
+
+        <GridItem colSpan={1}>
+          <Field.Root>
+            <Field.Label>Last Name</Field.Label>
+            <Input placeholder="Last Name" />
+          </Field.Root>
+        </GridItem>
+
+        <GridItem colSpan={2}>
+          <Field.Root>
+            <Field.Label>Address</Field.Label>
+            <Textarea placeholder="Enter your address..." />
+          </Field.Root>
+        </GridItem>
+
+        <GridItem colSpan={1}>
+          <Field.Root>
+            <Field.Label>City</Field.Label>
+            <Input placeholder="Enter City" />
+          </Field.Root>
+        </GridItem>
+
+        <GridItem colSpan={1}>
+          <Field.Root>
+            <Field.Label>Country</Field.Label>
+            <Select placeholder="Select Country">
+              <option value="India">India</option>
+              <option value="USA">USA</option>
+              <option value="UK">UK</option>
+              <option value="Australia">Australia</option>
+            </Select>
+          </Field.Root>
+        </GridItem>
+
+        <GridItem colSpan={2}>
+          <Checkbox>Ship to Billing Address</Checkbox>
+        </GridItem>
+
+        <GridItem colSpan={2}>
+          <Button width="full" size="lg">
+            Place Items
+          </Button>
+        </GridItem>
+      </SimpleGrid>
+    </VStack>
+  );
+}
+
+export default YourDetails;

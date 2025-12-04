@@ -1,0 +1,21 @@
+import React from "react";
+import { MenuItem, Button,Menu, MenuButton, MenuList} from "@chakra-ui/react";
+
+
+const ExampleMenu = () => {
+  console.log("Rendering ExampleMenu"); // Add this line
+  return (
+    <Menu>
+      <MenuButton as={Button} colorScheme="blue">
+        Actions
+      </MenuButton>
+      <MenuList>
+        <MenuItem>Download</MenuItem>
+        <MenuItem>Create a Copy</MenuItem>
+        <MenuItem>Mark as Draft</MenuItem>
+      </MenuList>
+    </Menu>
+  );
+};
+
+export default ExampleMenu;

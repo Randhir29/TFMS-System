@@ -1,0 +1,72 @@
+import { AspectRatio, Button, Heading, HStack, Image, Separator, Stack, Text, VStack } from '@chakra-ui/react';
+import { useColorMode } from "./ui/color-mode";
+
+function Cart() {
+  const {toggleColorMode}= useColorMode();
+  const result = useColorMode();
+  console.log(result);
+  return (
+    
+     <VStack 
+          bg="gray.200"
+          w="full" 
+          h="full" 
+          p={10} 
+          spacing={10} 
+          align="flex-start">
+            <VStack 
+            align="flex-start" 
+            spacing={2}>
+            <Heading>Your Cart</Heading>
+             <Text mr={2}>If the price is too hard on your eyes,{" "}
+                <Button
+                onClick={toggleColorMode}
+                variant="outline"
+                colorScheme="gray"
+              >
+                try changing the theme
+              </Button>
+              </Text>      
+            </VStack>
+
+            <HStack spacing={6} alignItems="center" w='full'>
+              <AspectRatio ratio={1} w={24}>
+                <Image src='https://upload.wikimedia.org/wikipedia/hi/thumb/8/8c/Hindustan_Petroleum_Logo.svg/236px-Hindustan_Petroleum_Logo.svg.png?20131207090549' alt='HPCL' 
+                objectFit="contain"  
+                w="full"           
+                h="full"           
+                />
+              </AspectRatio>
+              <Stack spacing={0} w='full' direction='row' justifyContent='space-between' alignItems='center'>
+                <VStack w='full' spacing={0} alignItems='flex-start'>
+                  <Heading size='sm'>HPCL</Heading>
+                  <Text color='gray.600'>Petroleum</Text>
+                </VStack>
+                <Heading size='sm'>₹10,00,000</Heading>
+              </Stack>
+            </HStack>
+
+            <VStack w='full' spacing={4} alignItems='stretch'>
+              <HStack justifyContent='space-between'>
+                <Text color='gray.500'>Subtotal</Text>
+                <Heading size='sm'>₹10,00,000</Heading>
+              </HStack>
+              <HStack justifyContent='space-between'>
+                <Text color='gray.500'>Shipping</Text>
+                <Heading size='sm'>₹10,000</Heading>
+              </HStack>
+              <HStack justifyContent='space-between'>
+                <Text color='gray.500'>Taxes (estimated)</Text>
+                <Heading size='sm'>₹1,80,000</Heading>
+              </HStack>
+              <Separator />
+              <HStack justifyContent='space-between'>
+                <Text color='gray.600'>Total</Text>
+                <Heading size='lg'>₹11,90,000</Heading>
+              </HStack>
+            </VStack> 
+      </VStack>
+  )
+}
+
+export default Cart
