@@ -1,0 +1,326 @@
+{
+  "menuItems": [
+    {
+      "id": "dashboard",
+      "label": "Dashboard",
+      "icon": "LuLayoutDashboard",
+      "value": "dashboard",
+      "permissions": {
+        "view": "dashboard:view"
+      },
+      "children": [
+        {
+          "id": "dashboard-main",
+          "label": "Main Overview",
+          "icon": "LuGauge",
+          "value": "dashboard-main",
+          "to": "/dashboard",
+          "permissions": {
+            "view": "dashboard:main:view"
+          },
+          "children": []
+        },
+        {
+          "id": "dashboard-analytics",
+          "label": "Analytics",
+          "icon":"LuChartColumnStacked",
+          "value": "dashboard-analytics",
+          "to": "/dashboard/analytics",
+          "permissions": {
+            "view": "dashboard:analytics:view"
+          },
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "tank-management",
+      "label": "Tank Management",
+      "icon": "LuDatabase",
+      "value": "tank-management",
+      "permissions": {
+        "view": "tank:management:view"
+      },
+      "children": [
+        {
+          "id": "tank-view",
+          "label": "Tank View",
+          "icon": "LuLayoutPanelTop",
+          "value": "tank-view",
+          "to": "/tanks/view",
+          "permissions": {
+            "view": "tank:view"
+          },
+          "children": []
+        },  
+        {
+          "id": "tank-live-data",
+          "label": "Tank Live Data",
+          "icon": "LuActivity",
+          "value": "tank-live-data",
+          "to": "/tanks/live-data",
+          "permissions": {
+            "view": "tank:live:view",
+            "export": "tank:live:export"
+          },
+          "children": []
+        },
+        {
+          "id": "tank-master",
+          "label": "Tank Master",
+          "icon": "LuLayers",
+          "value": "tank-master",
+          "to": "/tanks/master",
+          "permissions": {
+            "view": "tank:master:view",
+            "add": "tank:master:add",
+            "edit": "tank:master:edit",
+            "update": "tank:master:update",
+            "delete": "tank:master:delete",
+            "export": "tank:master:export"
+          },
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "sap-tfms",
+      "label": "SAP(ERP) – TFMS",
+      "icon": "LuWorkflow",
+      "value": "sap-tfms",
+      "permissions": {
+        "view": "sap:tfms:view"
+      },
+      "children": [
+        {
+          "id": "host-tfms",
+          "label": "HOST TFMS",
+          "icon": "LuServer",
+          "value": "host-tfms",
+          "to": "/sap-tfms/host-tfms",
+          "permissions": {
+            "view": "sap:tfms:host:view",
+            "export": "sap:tfms:host:export"
+          },
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "alarms",
+      "label": "Alarms",
+      "icon": "LuAlarmClock",
+      "value": "alarms",
+      "permissions": {
+        "view": "alarms:view"
+      },
+      "children": [
+        {
+          "id": "tank-alarms",
+          "label": "Tank Alarms",
+          "icon": "LuOctagonAlert",
+          "value": "tank-alarms",
+          "to": "/alarms/tanks",
+          "permissions": {
+            "view": "alarms:tank:view",
+            "export": "alarms:tank:export"
+          },
+          "children": []
+        },
+        {
+          "id": "system-alarms",
+          "label": "System Alarms",
+          "icon": "LuBell",
+          "value": "system-alarms",
+          "to": "/alarms/system",
+          "permissions": {
+            "view": "alarms:system:view",
+            "export": "alarms:system:export"
+          },
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "events",
+      "label": "Events",
+      "icon": "LuCalendarClock",
+      "value": "events",
+      "permissions": {
+        "view": "events:view"
+      },
+      "children": [
+        {
+          "id": "event-log",
+          "label": "Event Log",
+          "icon": "LuClipboardList",
+          "value": "event-log",
+          "to": "/events/logs",
+          "permissions": {
+            "view": "events:log:view",
+            "export": "events:log:export"
+          },
+          "children": []
+        },
+        {
+          "id": "system-events",
+          "label": "System Events",
+          "icon": "LuActivity",
+          "value": "system-events",
+          "to": "/events/system",
+          "permissions": {
+            "view": "events:system:view",
+            "export": "events:system:export"
+          },
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "reports",
+      "label": "Reports",
+      "icon": "LuFileChartColumn",
+      "value": "reports",
+      "permissions": {
+        "view": "reports:view"
+      },
+      "children": [
+        {
+          "id": "reports-tank",
+          "label": "Tank Reports",
+          "icon": "LuPresentation",
+          "value": "reports-tank",
+          "to": "/reports/tanks",
+          "permissions": {
+            "view": "reports:tank:view",
+            "export": "reports:tank:export"
+          },
+          "children": []
+        },
+        {
+          "id": "reports-transactions",
+          "label": "Transaction Reports",
+          "icon": "LuScrollText",
+          "value": "reports-transactions",
+          "to": "/reports/transactions",
+          "permissions": {
+            "view": "reports:transactions:view",
+            "export": "reports:transactions:export"
+          },
+          "children": []
+        },
+        {
+          "id": "reports-audit",
+          "label": "Audit Trail",
+          "icon": "LuClipboardList",
+          "value": "reports-audit",
+          "to": "/reports/audit-trail",
+          "permissions": {
+            "view": "reports:audit:view",
+            "export": "reports:audit:export"
+          },
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "user-management",
+      "label": "User Management",
+      "icon": "LuUsers",
+      "value": "user-management",
+      "permissions": {
+        "view": "users:management:view"
+      },
+      "children": [
+        {
+          "id": "users",
+          "label": "Users",
+          "icon": "LuSquareUserRound",
+          "value": "users",
+          "to": "/users",
+          "permissions": {
+            "view": "users:view",
+            "add": "users:add",
+            "edit": "users:edit",
+            "update": "users:update",
+            "delete": "users:delete"
+          },
+          "children": []
+        },
+        {
+          "id": "roles",
+          "label": "Roles & Permissions",
+          "icon": "LuShieldCheck",
+          "value": "roles",
+          "to": "/roles",
+          "permissions": {
+            "view": "roles:view",
+            "add": "roles:add",
+            "edit": "roles:edit",
+            "update": "roles:update",
+            "delete": "roles:delete"
+          },
+          "children": []
+        },
+        {
+          "id": "sessions",
+          "label": "Active Sessions",
+          "icon": "LuClock3",
+          "value": "sessions",
+          "to": "/users/sessions",
+          "permissions": {
+            "view": "sessions:view"
+          },
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "system-config",
+      "label": "System Configuration",
+      "icon": "LuSettings2",
+      "value": "system-config",
+      "permissions": {
+        "view": "config:system:view"
+      },
+      "children": [
+        {
+          "id": "config-general",
+          "label": "General Settings",
+          "icon": "LuSlidersHorizontal",
+          "value": "config-general",
+          "to": "/config/general",
+          "permissions": {
+            "view": "config:general:view",
+            "update": "config:general:update"
+          },
+          "children": []
+        },
+        {
+          "id": "config-session",
+          "label": "Session Settings",
+          "icon": "LuTimerReset",
+          "value": "config-session",
+          "to": "/config/session",
+          "permissions": {
+            "view": "config:session:view",
+            "update": "config:session:update"
+          },
+          "children": []
+        },
+        {
+          "id": "config-audit",
+          "label": "Audit & Logs",
+          "icon": "LuFileSearch",
+          "value": "config-audit",
+          "to": "/config/audit",
+          "permissions": {
+            "view": "config:audit:view",
+            "update": "config:audit:update"
+          },
+          "children": []
+        }
+      ]
+    }
+  ]
+}
