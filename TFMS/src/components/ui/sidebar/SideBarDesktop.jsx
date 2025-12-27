@@ -3,12 +3,10 @@ import {
   Accordion,
   Box,
   Menu,
-  Portal,
   Text,
   useRecipe
 } from "@chakra-ui/react";
 import { useCallback, useRef, useState } from "react";
-import { Tooltip } from "../Tooltip";
 
 import { FiChevronDown } from "react-icons/fi";
 import { LuPanelLeftClose, LuPanelRightClose } from "react-icons/lu";
@@ -60,6 +58,7 @@ export default function SidebarDesktop() {
   const itemSlot = useRecipe({ recipe: sidebarItemRecipe });
   const iconSlot = useRecipe({ recipe: sidebarIconRecipe });
 
+
   // console.log(Object.keys(LucideIcons).filter(k => k.includes("Panel")));
 
   // Call the recipe function with current props to get the specific style objects for each part
@@ -89,88 +88,6 @@ export default function SidebarDesktop() {
     [navigate]
   );
 
-  //---------------------------------------------------------------------
-  // Helpers: inspect & sanitize recipe outputs so layout props don't override/duplicate
-  //---------------------------------------------------------------------
-// const pickVisualProps = (obj = {}, { allowColor = true } = {}) => {
-//   // Return only a small safe whitelist of truly visual properties.
-//   // This prevents layout/spacing/typography props (gap, padding*, display, width, fontSize, cursor, etc.)
-//   // from being re-applied to a wrapper like Accordion.ItemTrigger._open.
-//   if (typeof obj !== "object" || obj == null) return obj;
-//   const {
-//     // explicitly omit common layout/spacing/typography keys that recipes may return
-    
-//     display, width, gap,
-//     px, py, p, padding, paddingLeft, paddingRight, paddingTop, paddingBottom,
-//     paddingBlock, paddingInline, paddingInlineStart, paddingInlineEnd,
-//     ml, mr, mt, mb, // margins
-//     minHeight, minWidth, maxWidth, height,
-//     fontSize, fontWeight, lineHeight, letterSpacing,
-//     cursor, overflow, alignItems, justifyContent,
-//     // keep rest for inspection below
-//     ...rest
-//   } = obj;
- 
-//   // Visual whitelist - only these keys will be returned (unless allowColor=false then remove color/bg)
-//   const visualKeys = new Set([
-//     "bg", "background", "backgroundColor",
-//     "border", "borderColor", "borderRadius",
-//     "boxShadow", "opacity", "transform",
-//     "filter", "backdropFilter", "outline",
-//     // keep subtle extras you consider visual (but not layout/typography)
-//     "borderStyle", "borderWidth"
-//   ]);
-
-//    const safe = {};
-//   // also keep any other non-layout props (e.g. textDecoration)
-//   Object.keys(rest).forEach((k) => {
-//     if (visualKeys.has(k)) safe[k] = rest[k];
-//   });
-
-//   // optionally block color/bg completely to avoid color overrides
-//   if (!allowColor) {
-//     delete safe.bg;
-//     delete safe.background;
-//     delete safe.backgroundColor;
-//     delete safe.color;
-//   } else {
-//     // allow color explicitly if present in rest
-//     if (rest.color !== undefined) safe.color = rest.color;
-//   }
-
-//   return safe;
-// };
-//---------------------------------------------------------------------
-
-// const debugRecipe = (label, obj) => {
-//   // small safe log for debugging in dev only
-//   try {
-//     // eslint-disable-next-line no-console
-//     console.log(`[TFMS][recipe:${label}]`, obj);
-//   } catch (e) {}
-// };
-//----------------------------------------------------------------------------
-  // ------------------------------------------------------------
-  // Hover expand logic
-  // ------------------------------------------------------------
-  // const onMouseEnter = () => {
-  //   if (pinned) return;
-  //   clearTimeout(leaveTimer.current);
-  //   enterTimer.current = setTimeout(
-  //     () => setExpandedHover(true),
-  //     HOVER_DELAY_MS
-  //   );
-  // };
-
-  // const onMouseLeave = () => {
-  //   if (pinned) return;
-  //   clearTimeout(enterTimer.current);
-  //   leaveTimer.current = setTimeout(() => {
-  //     setExpandedHover(false);
-  //     setOpenItems([]);
-  //   }, HOVER_COLLAPSE_DELAY_MS);
-  // };
-
     const onClickToogleBtn = () => {
       setExpandedHover(prev => {
           if (prev) {
@@ -187,111 +104,77 @@ export default function SidebarDesktop() {
   const Active = isActiveRoute(child.to);
   const IconC = getIconByName(child.icon);
 
-    // Always fetch the `default` row styles from the recipe (respecting `expanded`) so
-    // we have a reliable fallback even if the recipe returns classNames or objects.
-
-    // applied style defaultRowStyles is of type object
-    // const defaultRowStyles = itemSlot({ state: "default", expanded: expanded ? "true" : "false" }); 
-
-
-    // Use `activeChild` variant when this child is the active route, otherwise use defaults
-    //applied style rowStyles is of type of Object
-
-      const rowStyles = itemSlot({
-       state: Active ? "activeChild" : "default",
-       expanded: expanded ? "true" : "false",
-      });
-
-    // applied style iconStyles is of type Object
-    const iconStyles = iconSlot({ variant: Active ? "active" : "default" });
-
-    // Normalize slot parts: the recipe may return className strings or style objects.
-
-    //rowStyles.row is of type Object
-
-    // const rowCss = { ...rowStyles.row };
-
-    // console.log(`Rendered Child is ${child.label} :--- and applied style is of type ${typeof( rowCss)} `);
-
-
-    //rowStyles.iconWrap is of type Object
-    // const iconWrapCss = rowStyles.iconWrap;
-
-    //rowStyles.label is of type Object
-    // const labelCss =  rowStyles.label;
-
-    return (
-       <Box
-          key = {child.id}
-          as = 'button'
-          sx = {rowStyles.row}
-          data-group='row'
-          onClick={()=> handleNavigate(child.to)}
-        >
- 
-          {/* Child Icon */}
-          <Box css={rowStyles.iconWrap}>
-            {
-              IconC ?
-              (<IconC css={iconStyles.svg} />) :
-              (<Box width="1.5rem" height="1.5rem" bg="brand.400" borderRadius="md" />)
-            }
-            </Box>
-              {expanded && (
-                <Text css={rowStyles.label}>
-                    {child.label}
-                </Text>
-            )}
-          </Box>
-    );
-  };
-
-  const renderMenuChild = (child) => {
-    const Active = isActiveRoute(child.to);
-    const IconC = getIconByName(child.icon);
-    const rowStyles = itemSlot({
-      state: Active ? "activeChild" : "default",
-      expanded: "false",  // collapsed mode
+  const rowStyles = itemSlot({
+    expanded: "true" ,
+    mode: "accordion",
+    level:"child",
   });
 
-  const iconStyles = iconSlot({
-    variant: Active ? "active" : "default",
-  });
- 
 
   return (
     <Box
-      as='button'
-      css={{...rowStyles.row,
-        borderRadius: "full",
-      }}
+      key={child.id}
+      as="button"
+      css={rowStyles.row}
+      style={Active?{backgroundColor: "#0a4e8c"} : {}}
+      pl="2.5rem"
+      mt="4px"
+      data-id={child.id}
       data-group="row"
       onClick={() => handleNavigate(child.to)}
     >
+      <Box css={rowStyles.iconWrap}
+      style={Active?{color: "#f9fafb"} : {}}>
+        {IconC ? (
+          <IconC />
+        ) : (
+          <Box width="1.5rem" height="1.5rem" bg="brand.400" borderRadius="md" />
+        )}
+      </Box>
 
-      {/* Icon */}
-      <Box css={rowStyles.iconWrap}>
-        {IconC ? <IconC css={iconStyles.svg} /> : (
+      {expanded && (
+        <Text css={rowStyles.label}
+        style={Active?{color: "#f9fafb"} : {}}>
+          {child.label}
+        </Text>
+      )}
+    </Box>
+  );
+};
+  const renderMenuChild = (child) => {
+  const Active = isActiveRoute(child.to);
+  const IconC = getIconByName(child.icon);
+
+  const rowStyles = itemSlot({
+    expanded: "false",
+    mode: "menu",
+    level:"child",
+  });
+
+  return (
+    <Box
+      as="button"
+      style={Active?{backgroundColor: "#063664"} : {}}
+      data-id={child.id}
+      data-group="row"
+      onClick={() => handleNavigate(child.to)}
+    >
+      <Box css={rowStyles.iconWrap}
+      style={Active?{color: "#f9fafb"} : {}}>
+        {IconC ? (
+          <IconC />
+        ) : (
           <Box width="1.5rem" height="1.5rem" bg="brand.400" borderRadius="lg" />
         )}
       </Box>
 
-        {/* Label */}
-        {/* Render the label as an inline-block with its own background/padding
-            and hover rules so borderRadius is visible inside the Menu item. */}
-        <Text
-          css={{
-            ...rowStyles.label
-            }
-          }
-        >
-          {child.label}
-        </Text>
+      <Text css={rowStyles.label}
+      style={Active?{color: "#f9fafb"} : {}}
+      >{child.label}</Text>
     </Box>
-
   );
-
 };
+
 
   // ------------------------------------------------------------
   // Render Parent Item
@@ -300,243 +183,100 @@ export default function SidebarDesktop() {
   const ParentActive = parent.children.some((c) => isActiveRoute(c.to));
   const IconC = getIconByName(parent.icon);
 
-  // Always fetch a reliable `default` style object (respects `expanded`)
-  // const defaultRowStylesParent = itemSlot({ state: "default", expanded: expanded ? "true" : "false" });
-
-  // Use activeParent when any child route is active, otherwise fall back to default
-  
   const rowStyles = itemSlot({
-    state: ParentActive ? "activeParent" : "default",
     expanded: expanded ? "true" : "false",
+    mode: expanded ? "accordion" : "menu",
+    level:"parent",
   });
- 
-  const iconStyles  = iconSlot({ variant: ParentActive ? "active" : "default" });
 
-  //  console.log(`Rendered Parent is ${parent.label} and applied style is ${typeof(rowStyles)} :--- and Parent Active Status is :---${ParentActive}`);
-
-
-  // Normalize
-  // const rowCss =  rowStyles.row;
-  // const iconWrapCss =  rowStyles.iconWrap;
-  // const labelCss =rowStyles.label;
-  // const indicatorCss = rowStyles.indicator;
-
-  // ---- DEBUG: inspect what recipe returns (layout + visual) ----
-    // debugRecipe(`parent.row (${parent.label})`, rowCss);
-    // debugRecipe(`parent.indicator (${parent.label})`, indicatorCss);
-    // // ----------------------------------------------------------------
-
-  //  console.log(`Rendered Parent is ${parent.label} :--- and applied style is of type ${typeof( indicatorCss)} and Parent Active Status is :---${ParentActive}`);
-
-  // Sanitize open styles: keep only visual props (avoid reapplying padding/display/margins)
-    // const activeParentRowRaw = itemSlot({ state: "activeParent", expanded: expanded ? "true" : "false" }).row;
-    // const activeParentRow = pickVisualProps(activeParentRowRaw);
-    // debugRecipe(`parent._open sanitized (${parent.label})`, activeParentRow);
-
-  // Use explicit flex container for trigger internal layout (left-group + indicator)
-    // const triggerCss = {
-    //   display: "flex",
-    //   alignItems: "center",
-    //   justifyContent: "space-between",
-    //   gap: 8,
-    //   width: "100%",
-    //   // apply non-layout visual props from rowCss safely
-    //   ...pickVisualProps(rowCss),
-    //   overflow: expanded ? "visible" : rowCss?.overflow,
-    // };
-
-  // console.log(itemSlot);
-
-
-  // Compute the styles for the `activeParent` state so we can attach them
-  // to the trigger's `_open` pseudo-prop (applies when the Accordion item is open).
-//   - Function call
-// - itemSlot({...}) is being invoked.
-// - Arguments passed
-// - state: "activeParent" → This is a flag/identifier telling the slot which state it represents.
-// - expanded: expanded ? "true" : "false" → This is a conditional expression:
-// - If the variable expanded is truthy → "true"
-// - Otherwise → "false"
-//- Property access
-//- .row → After itemSlot(...) returns an object, you’re accessing its row property.
-
-  // const activeParentRow = itemSlot({ state: "activeParent", expanded: expanded ? "true" : "false" }).row;
-
-  // console.log(`Rendered Parent is ${parent.label} :--- and Parent Active Status is :---${ParentActive}`);
-
-  // console.log("Active Parent Row Styles:", activeParentRow);
-
-  return expanded ?
-
-  (
-
-    // --- Expanded: same Accordion logic as before ---
-
-    <Accordion.Item key={parent.id} value={parent.value}>
-
-        <Accordion.ItemTrigger
-
-          css={{...rowStyles.row, '&[data-state=open]':
-
-              ParentActive
-
-                ? itemSlot({
-
-                    state: "activeParent",
-
-                    expanded: expanded ? "true" : "false",
-
-                  }).row
-
-                : undefined
-
-            }}
-
-          data-group="row"
-
-      >
-
-        {/* Parent Icon */}
-
-        <Box css={rowStyles.iconWrap}>
-
-          {IconC ? (
-
-            <Box as={IconC} css={iconStyles.svg} />
-
-          ) : (
-
-            <Box width="20px" height="20px" bg="gray.400" borderRadius="md" />
-          )}
-        </Box>
-
-        {/* Parent Label */}
-
-        <Text css={rowStyles.label}>{parent.label}</Text>
-
-        {/* Parent Indicator */}
-
-        <Accordion.ItemIndicator css={rowStyles.indicator}>
-
-          <FiChevronDown />
-
-        </Accordion.ItemIndicator>
-
-      </Accordion.ItemTrigger>
-
-       {/* Children */}
-
-      <Accordion.ItemContent>
-
-        {parent.children.map(renderChild)}
-
-      </Accordion.ItemContent>
-
-  </Accordion.Item>
-
-  ) :
-
-  (
-    // --- Collapsed: switch to Menu ---
-    <Menu.Root key={parent.id} positioning={{ placement: "right-start" }}>
-      {/* Tooltip still shows parent label — Menu.Trigger wraps the Tooltip so refs are forwarded */}
-        
-        <Menu.Trigger asChild>
-          <Tooltip
-            openDelay={200}
-            closeDelay={0}
-            positioning={{ placement: "right-start" }}
-            content={parent.label}
-            showArrow
+  // ---------- EXPANDED: ACCORDION ----------
+    if (expanded) {
+      return (
+        <Accordion.Item key={parent.id} value={parent.value}>
+          <Accordion.ItemTrigger
+            css={rowStyles.row}
+            style={ParentActive?{backgroundColor: "#4d96ff"} : {}}
+            data-id={parent.id}
+            data-group="row"
           >
-            <Box
-              css={rowStyles.row}
-              data-group="row"
+            <Box css={rowStyles.iconWrap}
+            style={ParentActive?{color: "#f9fafb"} : {}}
             >
-              {/* Parent Icon */}
-              <Box css={rowStyles.iconWrap}>
+              {IconC ? (
+                <Box as={IconC} />
+              ) : (
+                <Box width="20px" height="20px" bg="gray.400" borderRadius="md" />
+              )}
+            </Box>
 
+            <Text css={rowStyles.label}
+            style={ParentActive?{color: "#f9fafb"} : {}}
+            >{parent.label}</Text>
+
+            <Accordion.ItemIndicator css={rowStyles.indicator}>
+              <FiChevronDown color={ParentActive ? "#f9fafb" : "currentColor"} />
+            </Accordion.ItemIndicator>
+          </Accordion.ItemTrigger>
+
+          <Accordion.ItemContent>
+            <Box display="flex" flexDirection="column" gap="4px">
+              {parent.children.map(renderChild)}
+            </Box>
+          </Accordion.ItemContent>
+        </Accordion.Item>
+      );
+    }
+
+    // ---------- COLLAPSED: MENU ----------
+    return (
+      <Menu.Root key={parent.id} positioning={{ placement: "right-start" }}>
+        <TFMSTooltip label={parent.label}>
+          <Menu.Trigger asChild>
+            <Box
+              as="button" 
+              css={rowStyles.row}
+              px= {2}
+              py= {2}
+              style={ParentActive?{backgroundColor: "#4d96ff"} : {}}
+              data-group="row"
+              data-id={parent.id}
+            >
+              <Box css={rowStyles.iconWrap}
+              style={ParentActive?{color: "#f9fafb"} : {}}
+              >
                 {IconC ? (
-
-                  <Box as={IconC} css={iconStyles.svg} />
-
+                  <Box as={IconC} />
                 ) : (
-
-                  <Box width="20px" height="20px" bg="gray.400" borderRadius="md" />
-
+                  <Box w="20px" h="20px" bg="gray.400" borderRadius="md" />
                 )}
-
               </Box>
-              {/* Parent Indicator (Chevron)*/}
+
               <Box css={rowStyles.indicator}>
-                <FiChevronDown />
+                <FiChevronDown color={ParentActive ? "#f9fafb" : "currentColor"}/>
               </Box>
             </Box>
-          </Tooltip>
-        </Menu.Trigger>
- 
+          </Menu.Trigger>
+        </TFMSTooltip>
 
-      {/* Child items rendered via Menu.Content */}
-
-      <Portal>
-        <Menu.Positioner style={{ marginLeft: "0.5rem" }} css={{ zIndex:  9999 }}>
-          <Menu.Content>
+        <Menu.Positioner style={{ position: "absolute", zIndex: 9999 }}>
+          <Menu.Content >
             {parent.children.map((child) => (
-            <Menu.Item key={child.id} value={child.value} asChild>
-
-            {renderMenuChild(child)}
-
-          </Menu.Item>
-
+              <Menu.Item key={child.id} value={child.value} asChild css={rowStyles.row}>
+                {renderMenuChild(child)}
+              </Menu.Item>
             ))}
           </Menu.Content>
-      </Menu.Positioner>
-    </Portal>
-    </Menu.Root>
-  );
+        </Menu.Positioner>
+      </Menu.Root>
+    );
 };
 
-// const MenuItem = (props) => {
-//   const { value, title, ...rest } = props;
-//   return (
-//     <Show when={title} fallback={<Menu.Item value={value} {...rest} />}>
-//       <Tooltip
-//         ids={{ trigger: value }}
-//         openDelay={200}
-//         closeDelay={0}
-//         positioning={{ placement: "right" }}
-//         content={title}
-//       >
-//         <Menu.Item value={value} {...rest} />
-//       </Tooltip>
-//     </Show>
-//   );
-// };
+// let el = document.querySelector('[data-id="tank-management"][data-group="row"]');
+// let cs = window.getComputedStyle(el);
+// let out = {};
+// for (let p of cs) { out[p] = cs.getPropertyValue(p); }
+// console.log(out);
 
-const MenuItem = ({ value, title, ...rest }) => {
-  if (!title) {
-    return <Menu.Item value={value} {...rest} />;
-  }
-
-  return (
-    <Tooltip
-      openDelay={200}
-      closeDelay={0}
-      positioning={{ placement: "right" }}
-      content={title}
-
-    >
-      <Tooltip.Trigger asChild>
-        <Menu.Item value={value} {...rest} />
-      </Tooltip.Trigger>
-    </Tooltip>
-  );
-};
-
-  // ------------------------------------------------------------
-  // Render Sidebar
-  // ------------------------------------------------------------
-  // Normalize sidebar slot outputs (className vs style objects)
 
   const containerCss =  sidebarStyles.container;
   const scrollCss = sidebarStyles.scroll;
@@ -545,41 +285,19 @@ const MenuItem = ({ value, title, ...rest }) => {
    return (
     
     <Box
-
       css={containerCss}
-
     >
-
- 
-
       {/* Menu */}
 
       <Box css={scrollCss} >
 
         <Accordion.Root
-
-          // Use uncontrolled Accordion for desktop to avoid complexity
-
-          // with switching between `single` and `multiple` controlled modes.
-
-          // This mirrors the working mobile implementation and lets the
-
-          // Accordion manage open state automatically on clicks.
-
           style={{ display: "block" }}
-
           value={openItems}
-
           onValueChange={
-
             (e) => {
-
-            console.log("Next accordion value:", e.value);
-
             setOpenItems(e.value);
-
             }
-
           }
 
           multiple   
@@ -608,7 +326,7 @@ const MenuItem = ({ value, title, ...rest }) => {
 
                 >
 
-                    <Box css={{...sideBarToogleButtonStyles,px:4,py:2, justifyContent:"flex-start", gap:"32px", fontSize: "md"}}>
+                    <Box css={{...sideBarToogleButtonStyles,px:4,py:2, justifyContent:"flex-start", gap:"32px", fontSize: "1.15rem"}}>
 
                       <LuPanelLeftClose size="1.5rem" />
 
@@ -619,11 +337,7 @@ const MenuItem = ({ value, title, ...rest }) => {
                 </Box>
 
             ) :
-
- 
-
             (
-
               <TFMSTooltip
 
                     label= "Toggle sidebar"
@@ -631,7 +345,6 @@ const MenuItem = ({ value, title, ...rest }) => {
                     placement="right"
 
                     offset={{ x: 0, y: 0 }}
-
               >
 
                 <Box
@@ -646,27 +359,16 @@ const MenuItem = ({ value, title, ...rest }) => {
 
                 >
 
-                    <Box css={{...sideBarToogleButtonStyles,px:4,py:2, justifyContent:"flex-start", fontSize: "1.5rem"}}>
-
+                    <Box css={{...sideBarToogleButtonStyles,px:4,py:2, 
+                      justifyContent:"flex-start", fontSize: "1.5rem"}}>
                       <LuPanelRightClose/>
-
                     </Box>
-
                 </Box>
-
               </TFMSTooltip>
-
             )
-
   }
-
- 
-
         </Accordion.Root>
-
       </Box> 
-
     </Box>
-
   );
 }

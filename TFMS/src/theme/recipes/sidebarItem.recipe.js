@@ -1,99 +1,100 @@
-
 // src/theme/recipes/sidebarItem.recipe.js
+
 import { defineRecipe } from "@chakra-ui/react";
-
-// src/theme/recipes/sidebarItem.recipe.js
 
 const sidebarItemRecipe = defineRecipe({
   className: "tfms-sidebar-item",
 
   base: {
-    row: { // styling for children
+    row: {
       width: "100%",
       display: "flex",
+      flexDirection: "row",
       alignItems: "center",
+      justifyContent: "flex-start",
       gap: "8px",
-      px: 2,
-      py: 2,
-      mt:1,
+      padding: "4px 10px",
+      mt: 2,
+
       color: "gray.800",
       fontSize: "md",
       fontWeight: "semibold",
+
       borderRadius: "full",
-      transition:  "background 0.2s ease, color 0.2s ease",
       cursor: "pointer",
-      // mark as group
-      '&[data-group="row"]': {},
-      _hover: {
-        bg: "brand.500",  //hover background color to children
-        color: "white",   //hover text color to children
+      transition: "background 0.2s ease, color 0.2s ease",
+
+      "&:focus": { outline: "none" },
+      "&:focus-visible": { outline: "none" },
+
+      "&:hover": {
+        background: "brand.500",
+        color: "white",
       },
+
+      '&[data-state="open"]': {
+        bg: "pink.400",
+        color: "white !important",
+      },
+
+      '&[data-state="open"] > *': {
+        color: "white",
+
+},
+
     },
 
     iconWrap: {
-      width: "1.5rem",
-      height: "1.5rem",
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      color: "inherit", // ✅ let SVG use currentColor
+      color: "inherit",
       transition: "transform 0.2s ease",
       '[data-group="row"]:hover &': { transform: "scale(1.1)" },
+      "& > *": {
+      width: "100%",
+      height: "100%",   
+      },
+      
     },
+
     label: {
-      flex: 1,          // ✅ allow label to take remaining space
-      minWidth: 0,      // ✅ critical for ellipsis/wrapping inside flex
-      fontSize: "md",
-      color: "gray.800",
+      flex: 1,
+      minWidth: 0,
       px: 1,
       py: 1,
       borderRadius: "full",
-      transition: "background 0.2s ease, color 0.2s ease",
+      transition: "opacity 0.15s ease, transform 0.15s ease, color 0.2s ease",
       '[data-group="row"]:hover &': { color: "white" },
+      
+      whiteSpace: "nowrap",
+      overflow: "hidden",
+      textOverflow: "ellipsis",
+      transform: "translateX(-4px)",
     },
 
     indicator: {
-      width: "1.5rem",
+      width: "1.25rem",
+      height: "1.25rem",
       flexShrink: 0,
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
       transition: "opacity 0.2s ease",
       opacity: 0.6,
-      color: "inherit", // ✅ let SVG use currentColor
-      // Push indicator to far right and keep uniform gap from the right edge
+      color: "inherit",
       ml: "auto",
       mr: 0,
-      _groupHover: { opacity: 1 }, // ✅ works collapsed or expanded
+     "& > *": {
+      width: "1.25rem",
+      height: "1.25rem",
+      },
     },
   },
 
-  variants: {
-    state: {
-      default: {
-        row: { bg: "transparent" },
-      },
+  variants: {    
 
-     activeChild: {
-      row: {
-        bg: "blue.600",     // 🔥 strong highlight for active child
-        color: "white",
-      },
-      label: { color: "white" },
-      iconWrap: { color: "blue.600" },
-    },
-
-    activeParent: {
-      row: {
-        bg: "blue.300",     // 🔥 softer highlight for parent
-        color: "blue.800",
-      },
-      label: { color: "blue.700" },
-      iconWrap: { color: "blue.500" },
-    },
-    },
-
-    // `expanded` is a separate variant so it can be toggled independently
+    // expanded behaviour
     expanded: {
       true: {
         label: {
@@ -104,24 +105,56 @@ const sidebarItemRecipe = defineRecipe({
           overflow: "visible",
           textOverflow: "unset",
           width: "auto",
+          transform: "translateX(0)",
         },
       },
-
       false: {
         label: {
-          whiteSpace: "nowrap",
-          overflow: "hidden",
-          textOverflow: "ellipsis",
-          width: "100%",
+          transform: "translateX(-4px)",
+        },
+        iconWrap: {
+          width: "1.75rem",
+          height: "1.75rem",
         },
       },
     },
+
+    mode: {
+      accordion: {
+        label: {
+          '[data-expanded="true"] &': { opacity: 1 },
+          '[data-expanded="false"] &': { opacity: 0 },
+        },
+      },
+      menu: {
+        label: {
+          '[data-expanded="true"] &': { opacity: 0 },
+          '[data-expanded="false"] &': { opacity: 1 },
+        },
+      },
+    },
+
+    level: {
+      parent: {
+        iconWrap: { width: "1.25rem", height: "1.25rem" },
+        label: { fontSize: "1.15rem" },
+      },
+      child: {
+        iconWrap: { width: "1rem", height: "1rem" }, // smaller icon
+        label: { fontSize: "0.95rem" }, // smaller text
+      },
+    },
+
   },
 
   defaultVariants: {
-    state: "default",
+    // state: "default",
     expanded: "false",
+    mode: "menu",
+    level: "parent",
   },
 });
 
 export default sidebarItemRecipe;
+
+

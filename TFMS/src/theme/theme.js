@@ -17,6 +17,7 @@ const tokens = defineTokens({
   colors: {
     brand: {
       50: { value: "#e7f2ff" },
+      60: {value : "#f8fbfd"},
       100: { value: "#c2dbff" },
       200: { value: "#9bc4ff" },
       300: { value: "#74adff" },
@@ -24,8 +25,12 @@ const tokens = defineTokens({
       500: { value: "#347de6" },
       600: { value: "#265fb4" },
       700: { value: "#194282" },
+      750: { value: "#3498da"},
+      760: {value : "#2f87c6"},
       800: { value: "#0b2551" },
+      850: { value: "#063664"},
       900: { value: "#000a22" },
+    
     },
     gray: {
       50: { value: "#f9fafb" },

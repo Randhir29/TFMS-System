@@ -14,7 +14,7 @@
           "label": "Main Overview",
           "icon": "LuGauge",
           "value": "dashboard-main",
-          "to": "/dashboard",
+          "to": "/app/dashboard",
           "permissions": {
             "view": "dashboard:main:view"
           },
@@ -23,7 +23,7 @@
         {
           "id": "dashboard-analytics",
           "label": "Analytics",
-          "icon":"LuChartColumnStacked",
+          "icon": "LuChartColumnStacked",
           "value": "dashboard-analytics",
           "to": "/dashboard/analytics",
           "permissions": {
@@ -52,7 +52,7 @@
             "view": "tank:view"
           },
           "children": []
-        },  
+        },
         {
           "id": "tank-live-data",
           "label": "Tank Live Data",

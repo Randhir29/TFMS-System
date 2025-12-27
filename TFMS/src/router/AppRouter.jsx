@@ -8,6 +8,7 @@ import { createAction } from "../components/ui/auths/LoginForm.jsx";
 
 import AppLayout from "../layout/AppLayout.jsx";
 import RootLayout from "../layout/RootLayout.jsx";
+import DashBoard from "../pages/DashBoard.jsx";
 
 import LoginPage from "../pages/LoginPage.jsx";
 
@@ -56,7 +57,7 @@ const router = createBrowserRouter(
       {/* ---------------- TFMS APP ROUTES ---------------- */}
       <Route path="app" element={<AppLayout />}>
 
-        DASHBOARD
+        <Route path="dashboard" element={<DashBoard />} />
         {/* <Route path="dashboard" element={<DashboardMain />} />
         <Route path="dashboard/analytics" element={<DashboardAnalytics />} /> */}
 

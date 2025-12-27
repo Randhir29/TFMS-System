@@ -1,11 +1,21 @@
 {
-  "servers": {
-    "chakra-ui": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@chakra-ui/react-mcp"
-      ]
-    }
-  }
+	"servers": {
+		"chakra-ui": {
+			"command": "npx",
+			"args": [
+				"-y",
+				"@chakra-ui/react-mcp"
+			],
+			"type": "stdio"
+		},
+		"my-mcp-server": {
+			"type": "stdio",
+			"command": "npx",
+			"args": [
+				"-y",
+				"@chakra-ui/react-mcp"
+			]
+		}
+	},
+	"inputs": []
 }

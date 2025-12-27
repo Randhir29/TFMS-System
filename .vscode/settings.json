@@ -1,1 +1,15 @@
-{}
+{
+  "chat.mcp.serverSampling": {
+    "TFMS/.vscode/mcp.json: chakra-ui": {
+      "allowedModels": [
+        "copilot/gpt-5-mini"
+      ]
+    },
+    "TFMS/.vscode/mcp.json: my-mcp-server": {
+      "allowedModels": [
+        "copilot/claude-sonnet-4.5",
+        "copilot/gpt-5-mini"
+      ]
+    }
+  }
+}

@@ -1,125 +1,359 @@
-# GitHub Copilot Project Instructions
+# GitHub Copilot Instructions — Tank Farm Management System (TFMS)
 
-This project includes additional AI reference documentation for **Chakra UI v3**, stored inside the repository so that **GitHub Copilot Pro / Individual** can use it during code generation.
-
-The main reference file is:
-
-```
-docs/ai/chakra/llms-full.txt
-```
-
-This file contains the complete Chakra UI v3 LLM-optimized documentation including:
-
-* Tokens & Semantic Tokens
-* Recipes (Button, Input, etc.)
-* Theming system
-* Style system & patterns
-* Component APIs
-* Migration notes (v2 → v3)
-* Examples & usage patterns
+> **This is the authoritative instruction file for GitHub Copilot Agent Mode.**
+> Copilot must follow this document *strictly* and cross‑reference
+> **`docs/ai/chakra/llms-full.txt`** for Chakra UI v3 patterns, theme tokens, recipes, and component specifications.
 
 ---
 
-## ✅ How to Reference Chakra UI Docs in Copilot Prompts
+# 1. Project Overview
 
-### **General reference**
+Enterprise‑grade Tank Farm Management System built with:
 
-```
-Use the Chakra UI v3 documentation in docs/ai/chakra/llms-full.txt for this task.
-```
+* **Backend:** .NET C# MVC + Clean Architecture
+* **Database:** MS SQL + Dapper
+* **Frontend:** React (Vite) + **Chakra UI v3 (Ark UI + Floating UI)**
+* Zustand, React Query, TanStack Table
+* **Charts:** Recharts
+* **Exports:** SheetJS + pdfmake
 
-### **Theming generation**
-
-```
-Refer to docs/ai/chakra/llms-full.txt and generate a complete Chakra UI v3 theme.js using:
-- defineTokens
-- defineSemanticTokens
-- recipes for Button, Input, and Card
-```
-
-### **Recipe creation**
-
-```
-Using docs/ai/chakra/llms-full.txt, generate a button.recipe.js with solid, subtle, outline variants and sm/md/lg sizes using token references.
-```
-
-### **Component creation**
-
-```
-Read docs/ai/chakra/llms-full.txt and build a modern Login page (Box, Flex, Heading, Input, FormControl, Button recipe). Include token-based spacing and semantic colors.
-```
-
-### **Migration assistance**
-
-```
-Using the migration guidelines in docs/ai/chakra/llms-full.txt, convert this Chakra UI v2 Button component to Chakra UI v3 recipe style.
-```
+**Goal:** Deliver predictable, consistent, production‑ready Copilot output.
 
 ---
 
-## 🧠 Tips for Best Copilot Results
+# 2. Coding Style & Conventions
 
-### **1. Always mention the file path**
+* Always use **async/await**.
+* Naming conventions:
 
-Copilot does not assume context automatically. Use:
+  * PascalCase → classes, interfaces, enums
+  * camelCase → variables, parameters
+* Enforce **SOLID** principles.
+* File naming:
 
-```
-See docs/ai/chakra/llms-full.txt
-```
-
-### **2. For large tasks, ask Copilot to extract rules first**
-
-```
-Summarize the recipe system from docs/ai/chakra/llms-full.txt and then generate a recipe for a Badge component.
-```
-
-### **3. For styling accuracy**
-
-```
-Follow Chakra UI v3 theming guidelines as documented in docs/ai/chakra/llms-full.txt.
-```
-
-### **4. For consistent design system**
-
-```
-Use the token patterns defined in docs/ai/chakra/llms-full.txt to make spacing, colors, and typography consistent across components.
-```
+  * C#: `PascalCase.cs`
+  * React: `camelCase.jsx`
+  * DTOs: `PascalCaseDto.cs`
+  * Repositories: `PascalCaseRepository.cs`
 
 ---
 
-## 📁 File Location Summary
+# 3. Backend Architecture (Clean Architecture)
 
 ```
-/docs
-    /ai
-        /chakra
-            llms-full.txt  ← AI reference used by Copilot
-    COPILOT-INSTRUCTIONS.md ← This file
+src/
+  Domain/
+  Application/
+  Infrastructure/
+  Web/
 ```
+
+Copilot must:
+
+* Generate DTOs
+* Create Repositories + Interfaces + Services
+* Use Dapper with parameterized SQL
+* Keep controllers thin
+* Use AutoMapper
 
 ---
 
-## ✔ Purpose of This File
+# 4. Database & SQL Standards
 
-This file tells GitHub Copilot how to:
-
-* Read Chakra UI v3 documentation from inside your repository
-* Use it for code generation
-* Follow your design system consistently
-* Produce correct Chakra UI v3-compliant components, themes, and recipes
+* SQL must be formatted, multi‑line, parameterized.
+* Stored procedures must use **TRY/CATCH**.
+* Naming convention: `spModule_Action`.
 
 ---
 
-## 📌 Reminder
+# 5. Dapper Repository Rules
 
-
+* Repositories implement interfaces.
+* Use `IDbConnection` via DI.
+* Return DTOs only.
 
 ---
 
-If you update Chakra UI docs, replace the file at:
+# 6. Service Layer Rules
+
+* Business logic stays in Services.
+* Services must implement interfaces.
+* Controllers must be thin.
+* Validate all inputs.
+
+---
+
+# 7. Controller Rules
+
+* Must use DTOs.
+* Apply `[Authorize]`.
+* Return correct HTTP status codes.
+
+---
+
+# 8. Middleware & Security Rules
+
+Copilot must generate:
+
+* JWT authentication middleware
+* Authorization middleware
+* Logging middleware
+* Global exception middleware
+
+---
+
+# 9. Frontend Architecture (React + Vite)
 
 ```
-docs/ai/chakra/llms-full.txt
+src/
+  features/
+  components/
+  hooks/
+  services/
+  utils/
+  routes/
+  store/
+  theme/
 ```
 
-and commit the changes.
+Copilot must follow this structure.
+
+---
+
+# 10. React Component Rules
+
+* Functional components only.
+* **JSX only — no TypeScript.**
+* Must use:
+
+  * Chakra UI v3 (Ark UI + Floating UI)
+  * Zustand
+  * React Query
+  * TanStack Table v8
+  * react‑hook‑form
+  * Recharts
+* Components must be reusable.
+
+---
+
+# 11. Chakra UI v3 — Mandatory Rules
+
+Copilot must load **`docs/ai/chakra/llms-full.txt`** **before generating UI code.**
+
+## ✔ 11.1 JSX‑Only
+
+* No TSX, no types, no interfaces, no generics.
+
+## ✔ 11.2 Mandatory Ark UI Slot Architecture
+
+**Tooltip:**
+
+```jsx
+<Tooltip.Root positioning={{ placement: "right" }}>
+  <Tooltip.Trigger asChild>{trigger}</Tooltip.Trigger>
+  <Tooltip.Positioner>
+    <Tooltip.Content>
+      {content}
+      <Tooltip.Arrow />
+    </Tooltip.Content>
+  </Tooltip.Positioner>
+</Tooltip.Root>
+```
+
+**Menu:**
+
+```jsx
+<Menu.Root positioning={{ placement: "right-start" }}>
+  <Menu.Trigger asChild>{trigger}</Menu.Trigger>
+  <Menu.Positioner>
+    <Menu.Content>
+      <Menu.Item value="edit">Edit</Menu.Item>
+    </Menu.Content>
+  </Menu.Positioner>
+</Menu.Root>
+```
+
+## ✔ 11.3 Forbidden (Legacy Chakra v2 APIs)
+
+Copilot must NEVER use:
+
+* `Tooltip label="..."`
+* `MenuButton`, `MenuList`, `MenuItem`
+* Popper.js props (`offset`, `modifiers`)
+* `colorScheme`
+* Deprecated Popover/Menu syntax
+
+## ✔ 11.4 Theme Usage Rules
+
+* ALWAYS import system from:
+
+```js
+import { system } from "@/theme";
+```
+
+* Do NOT recreate system configs locally.
+* Must use TFMS custom tokens only.
+
+## ✔ 11.5 Recipe Usage
+
+Use TFMS theme recipes:
+
+```jsx
+<Button className={buttonRecipe({ variant: "solid" })}>Save</Button>
+```
+
+## ✔ 11.6 Combined Component Rules
+
+When combining Tooltip + Menu + Popover → Copilot must use the **menu‑tooltip pattern** defined in `llms-full.txt`.
+
+---
+
+# 12. API Layer Rules (Axios + React Query)
+
+* Must use the shared Axios instance:
+
+```js
+import api from "@/services/apiClient";
+```
+
+* Must use React Query for all server I/O.
+* Must use `queryKey`, `queryFn`, `mutationFn`, `invalidateQueries`.
+
+---
+
+# 13. TanStack Table Rules
+
+Copilot must generate:
+
+* Columns
+* Sorting
+* Filtering
+* Pagination
+* Wrapped with Chakra UI v3 components
+
+---
+
+# 14. Recharts Rules
+
+* Responsive charts only
+* Must wrap charts inside Chakra `Card` from TFMS recipes / llms-full.txt
+
+---
+
+# 15. Export Rules
+
+* Excel → SheetJS
+* PDF → pdfmake
+
+---
+
+# 16. Error Handling Rules
+
+* Use TFMS Toaster wrapper (Chakra toast)
+* Must show user‑friendly messages
+* Global Axios error handler
+* Provide `ErrorBoundary`, `AccessDenied`, `NotFound`
+
+---
+
+# 17. Git & PR Rules
+
+* Conventional Commits
+* GitHub Flow
+* PR must contain:
+
+  * Summary
+  * Before/After screenshots
+  * Linked Jira/task
+  * Suggested tests
+
+---
+
+# 18. Copilot Must NOT Generate
+
+* Inline SQL
+* Business logic in controllers
+* Class components
+* TypeScript
+* Redundant / unused code
+* Chakra v2 syntax
+
+---
+
+# 19. Copilot MUST ALWAYS
+
+* Follow Clean Architecture
+* Use Chakra v3 patterns from llms-full.txt
+* Use Axios + React Query
+* Use TFMS theme, tokens, recipes
+* Produce production‑ready code
+
+---
+
+# 20. TFMS Data Flow & State Management Plan (Updated)
+
+Copilot must ALWAYS follow this exact plan.
+
+## 20.1 Tank List Query
+
+```js
+export const useTankList = () =>
+  useQuery({
+    queryKey: ["tanks", "list"],
+    queryFn: () => api.get("/tanks/list").then(r => r.data),
+    refetchInterval: 10000,
+  });
+```
+
+## 20.2 Tank Detail Query
+
+```js
+export const useTankDetail = (tankId, enabled) =>
+  useQuery({
+    queryKey: ["tanks", tankId, "detail"],
+    queryFn: () => api.get(`/tanks/${tankId}/detail`).then(r => r.data),
+    enabled,
+    refetchInterval: 10000,
+  });
+```
+
+## 20.3 Manual Value Update Mutation
+
+```js
+export const useManualValueUpdate = () =>
+  useMutation({
+    mutationFn: (payload) => api.post(`/tanks/${payload.tankId}/manual-update`, payload),
+  });
+```
+
+## 20.4 Change Source (Device ↔ Manual)
+
+```js
+export const useChangeSource = () =>
+  useMutation({
+    mutationFn: (payload) => api.post(`/tanks/${payload.tankId}/source-change`, payload),
+  });
+```
+
+## 20.5 Alarm Config + Update
+
+```js
+export const useAlarmConfig = (tankId) =>
+  useQuery({
+    queryKey: ["tanks", tankId, "alarm-config"],
+    queryFn: () => api.get(`/tanks/${tankId}/alarm-config`).then(r => r.data),
+  });
+
+export const useAlarmUpdate = () =>
+  useMutation({
+    mutationFn: (payload) => api.post(`/tanks/${payload.tankId}/alarm-config/update`, payload),
+  });
+```
+
+## 20.6 Query Invalidation (Mandatory)
+
+```js
+queryClient.invalidateQueries(["tanks", tankId, "detail"]);
+queryClient.invalidateQueries(["tanks", "list"]);
+
+```
